@@ -2,7 +2,7 @@
 
 Un juego cozy en español para PC, inspirado en Delfi. Afuera de la cafetería, Delfi te recibe y te invita a **merendar** o a **trabajar con ella**. Ilustraciones cálidas, rolls de canela y una partida sin apuro.
 
-![Entrada del juego](docs/preview.png)
+![Entrada del juego](docs/preview.webp)
 
 ## Jugar ahora, sin instalar nada
 
