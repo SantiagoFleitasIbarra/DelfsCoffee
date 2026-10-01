@@ -16,4 +16,8 @@ Los platos e iconos se dibujan en SVG en `game.js` y `assets/icon.svg`. La músi
 
 ## Ampliación del salón
 
+### Cuatro asientos (actualización)
+
+Se crearon tres ilustraciones nuevas con la herramienta integrada de generación de imágenes, usando `assets/window.webp` como referencia de estilo. Archivos finales: `assets/flowers.webp`, `assets/center.webp` y `assets/bar.webp`. Prompts: vista en primera persona desde un asiento en el rincón de flores; vista desde la mesa central mirando la entrada; vista desde un taburete frente a la cafetera, con borde horizontal de barra. En todos: fondo 16:9 cálido de película animada, madera miel y verde salvia, sin personas ni texto, espacio para superponer a Delfi y los pedidos. La barra se superpone mediante CSS para ocultar la parte inferior del personaje. Prueba específica: `CHROMIUM_PATH=... node tests/seating.cjs` (la variable es opcional si Playwright tiene Chromium instalado).
+
 La mesa junto a la ventana usa una nueva ilustración generada: vista desde el asiento, mesa de madera, luz cálida, plantas y mostrador al fondo. Los personajes y mascotas de `assets/characters.svg` son dibujos vectoriales originales realizados en código. Las mascotas toman sus colores y rasgos de las referencias proporcionadas; las fotos no se publican. Las animaciones se realizan con CSS.

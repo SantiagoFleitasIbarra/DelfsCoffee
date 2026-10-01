@@ -1,0 +1,20 @@
+/* Four actual seated viewpoints, not zooms of the room overview. */
+.scene-image.camera-1{background-image:url('assets/flowers.webp');background-position:center;transform:none}
+.scene-image.camera-2{background-image:url('assets/center.webp');background-position:center;transform:none}
+.scene-image.camera-3{background-image:url('assets/bar.webp');background-position:center;background-size:100% 100%;transform:none}
+.seat-0{--arrive-x:260px;--arrive-y:-50px;--arrive-scale:.6}
+.seat-1{--arrive-x:260px;--arrive-y:-60px;--arrive-scale:.65}
+.seat-2{--arrive-x:-280px;--arrive-y:-60px;--arrive-scale:.6}
+.seat-3{--arrive-x:-230px;--arrive-y:0px;--arrive-scale:.9}
+.seat-1 .delfi-actor{left:64%;bottom:24%}
+.seat-2 .delfi-actor{left:53%;bottom:27%}
+.seat-3 .delfi-actor{left:43%;bottom:16%;width:280px}
+.bar-foreground{position:absolute;inset:0;background:url('assets/bar.webp') center/100% 100% no-repeat;clip-path:inset(64.3% 0 0);z-index:2;pointer-events:none}
+.seat-3 .table-service{z-index:3;bottom:16px;border-radius:18px;width:min(750px,68%)}
+.seat-3 .preparing-note{z-index:3;left:48%;top:25%;padding:15px 22px}
+.seat-3 .bought-plant{z-index:3}
+.seat-3 .scene-label{z-index:3}
+@keyframes arrive{from{transform:translate(var(--arrive-x,260px),var(--arrive-y,-50px)) scale(var(--arrive-scale,.6));opacity:0}to{transform:translate(0) scale(1);opacity:1}}
+@keyframes leave{to{transform:translate(var(--arrive-x,280px),var(--arrive-y,-70px)) scale(var(--arrive-scale,.55));opacity:0}}
+@media(max-width:1000px){.seat-1 .delfi-actor{left:54%}.seat-2 .delfi-actor{left:45%}.seat-3 .delfi-actor{left:38%;width:250px}.seat-1 .actor-bubble{left:50%}}
+@media(max-width:760px){.seat-1 .delfi-actor{left:40%;bottom:27%}.seat-2 .delfi-actor{left:35%;bottom:30%}.seat-3 .delfi-actor{left:28%;width:220px;bottom:12%}.seat-3 .preparing-note{left:10%;right:10%;top:25%}.seat-3 .table-service{width:90%}}

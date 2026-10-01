@@ -43,7 +43,7 @@ Se guardan estrellas, pedidos completados, visitas, valoraciones, turnos, compra
 
 HTML, CSS y JavaScript, sin framework ni llamadas de red durante el juego. Ilustraciones de escenarios generadas para este proyecto; platos dibujados en SVG desde código; sonidos y música sintetizados con Web Audio. Electron es una opción para empaquetar el mismo juego como aplicación de escritorio.
 
-Es un juego 2D de escenas ilustradas y personajes SVG con animaciones de entrada, salida y reposo. La mesa de ventana tiene una ilustración propia; las otras mesas usan encuadres del salón.
+Es un juego 2D de escenas ilustradas y personajes SVG con animaciones de entrada, salida y reposo. Las cuatro ubicaciones tienen ilustraciones propias desde el asiento: ventana, flores, centro y barra. Delfi toma el pedido, se retira y vuelve en todas; en la barra aparece detrás del mostrador.
 
 ## Desarrollo
 
