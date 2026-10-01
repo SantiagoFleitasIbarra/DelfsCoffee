@@ -13,3 +13,7 @@ Interior de la misma cafetería del exterior, usando esa imagen como referencia 
 ## Otros elementos
 
 Los platos e iconos se dibujan en SVG en `game.js` y `assets/icon.svg`. La música es una secuencia original sencilla sintetizada en Web Audio. No hay archivos musicales de terceros ni fuentes remotas.
+
+## Ampliación del salón
+
+La mesa junto a la ventana usa una nueva ilustración generada: vista desde el asiento, mesa de madera, luz cálida, plantas y mostrador al fondo. Los personajes y mascotas de `assets/characters.svg` son dibujos vectoriales originales realizados en código. Las mascotas toman sus colores y rasgos de las referencias proporcionadas; las fotos no se publican. Las animaciones se realizan con CSS.

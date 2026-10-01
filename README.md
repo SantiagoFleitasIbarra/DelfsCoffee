@@ -14,19 +14,20 @@ El juego funciona sin conexión. No necesita cuenta, servidor, claves ni depende
 
 ## Los dos modos
 
-**Merendar:** elegí una de cuatro ubicaciones, pedí hasta cuatro productos, seleccioná el frosting de tus rolls y esperá a que Delfi te sirva. Hacé clic en los productos para disfrutar la merienda. Las visitas son gratis; los precios son valores ficticios para el modo trabajo.
+**Merendar:** elegí una de cuatro ubicaciones, pedí hasta cuatro productos, seleccioná el frosting de tus rolls y esperá a que Delfi te sirva. Delfi se acerca con su libreta, se retira a preparar y vuelve con una bandeja. Hacé clic en los productos para disfrutar la merienda y valorá la visita de 1 a 5 estrellas. Miguel, Phoebe y Canelita reaccionan a tus caricias y a los premios. Las visitas son gratis; los precios son valores ficticios para el modo trabajo.
 
-**Trabajar:** atendé cinco clientes por turno. Leé el ticket, elegí una estación, completá los pasos de la receta, frená el horno en la zona verde, seleccioná el frosting indicado y serví en plato o caja según corresponda. Los pedidos incorrectos no se entregan: podés corregirlos. Cada entrega suma monedas y propina. Al cerrar el turno podés regalar una planta a la cafetería.
+**Trabajar:** atendé cinco clientes por turno. Leé el ticket, elegí una estación, completá los pasos de la receta, frená el horno en la zona verde, seleccioná el frosting indicado y serví en plato o caja según corresponda. Los pedidos incorrectos no se entregan: podés corregirlos. Cada entrega suma estrellas y propina. La tienda permite comprar una planta, luces, decoración lavanda, camas y premios para las mascotas, y un horno con mayor zona de acierto. Lucía, Mateo, Sofía, Bruno y Valentina entran y salen del mostrador.
 
 No hay penalizaciones por tardar. Los pasos de cocina representan un minijuego y no son instrucciones culinarias reales.
 
-## Menú completo (32 opciones)
+## Menú completo (75 opciones)
 
 - **Dulces (11):** roll de canela; roll de canela y manzana; carrot cake; crumble de manzana; crumble de manzana y frutos rojos; cookies de gatitos; budín de limón; brownie; torta marmolada; galletitas danesas; alfajor ferrero.
 - **Frostings:** crema, crema y lavanda, crema con chocolate.
 - **Salados (7):** scones de queso; sándwich de lomito, queso crema y rúcula; sándwich capresse; tostón de palta, huevo y verdes; sándwich italiano en ciabatta con muzzarella fresca, pesto, lomito, tomate, aceite de oliva y rúcula; scones de espinaca y queso; tabla de quesos suaves, azules y de cabra con uvas, peras, higos, frutos secos y mermelada.
 - **De copa (9):** yogurt con granola y frutos rojos; tarta frutal; ensalada de frutas; helado; mousse de chocolate; mousse de limón; chocoflan; tiramisú; cheesecake de frutos rojos.
-- **Bebidas (5):** café con leche, espresso, té de lavanda, chocolate caliente y limonada.
+- **Bebidas calientes (24):** expresso simple y doble, panna, americano, latte, cortado, capuchinos clásico y vainilla, frappé, mocha, dalgona, breve, hawaiano, affogato, caramel y vainilla latte, caramel macchiato, matcha latte, submarino, chocolate caliente y cuatro infusiones.
+- **Bebidas frías (24):** cinco milkshakes, tres licuados, jugo de naranja, limonadas clásica/frutos rojos/frambuesa/lavanda, pomelada, coffee orange, tres iced teas, tres iced coffees y tres sodas.
 
 ## Controles y guardado
 
@@ -36,13 +37,13 @@ No hay penalizaciones por tardar. Los pasos de cocina representan un minijuego y
 - `Tab` / `Enter`: recorrer y activar botones.
 - ♪: activar o desactivar la música instrumental sintetizada.
 
-Se guardan monedas, pedidos completados, visitas, turnos y planta en `localStorage` del navegador. La preparación en curso no se guarda. Cambiar de navegador, mover el archivo local o borrar los datos del navegador puede cambiar o eliminar el guardado. La aplicación de escritorio tiene su propio guardado.
+Se guardan estrellas, pedidos completados, visitas, valoraciones, turnos, compras y caricias en `localStorage` del navegador. La preparación en curso no se guarda. Cambiar de navegador, mover el archivo local o borrar los datos del navegador puede cambiar o eliminar el guardado. La aplicación de escritorio tiene su propio guardado.
 
 ## Tecnologías
 
 HTML, CSS y JavaScript, sin framework ni llamadas de red durante el juego. Ilustraciones de escenarios generadas para este proyecto; platos dibujados en SVG desde código; sonidos y música sintetizados con Web Audio. Electron es una opción para empaquetar el mismo juego como aplicación de escritorio.
 
-Es una primera versión 2D interactiva con escenas ilustradas, no un entorno 3D de movimiento libre.
+Es un juego 2D de escenas ilustradas y personajes SVG con animaciones de entrada, salida y reposo. La mesa de ventana tiene una ilustración propia; las otras mesas usan encuadres del salón.
 
 ## Desarrollo
 
@@ -91,7 +92,8 @@ Para jugar online desde GitHub Pages: en un repositorio compatible con Pages, co
 ## Estructura
 
 - `index.html`: inicio.
-- `style.css`: interfaz, escenas y animaciones.
+- `style.css` y `living.css`: interfaz, escenas y animaciones.
+- `living.js` y `living-data.js`: elenco, visitas animadas, mascotas, valoraciones y tienda.
 - `game.js`: estados, pedidos, cocina, interacción, arte de platos y audio.
 - `menu.js`: productos, recetas, frostings y validación de pedidos.
 - `assets/`: arte exterior, interior e icono.
