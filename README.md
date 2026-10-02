@@ -1,4 +1,4 @@
-# Delfi · Canela & Café
+# Un ratito en CANELA & COFFEE
 
 Un juego cozy en español para PC, inspirado en Delfi. Afuera de la cafetería, Delfi te recibe y te invita a **merendar** o a **trabajar con ella**. Ilustraciones cálidas, rolls de canela y una partida sin apuro.
 
@@ -10,7 +10,7 @@ Un juego cozy en español para PC, inspirado en Delfi. Afuera de la cafetería, 
 2. Abrí `index.html` con Chrome, Edge o Firefox. En Windows también podés hacer doble clic en `JUGAR_EN_WINDOWS.bat`.
 3. Elegí **Quiero merendar** o **Quiero trabajar**.
 
-El juego funciona sin conexión. No necesita cuenta, servidor, claves ni dependencias para jugar en el navegador. No abras el HTML directamente dentro del ZIP: primero extraelo. F11 o el botón ⛶ amplían la pantalla.
+El juego funciona sin conexión; la canción de YouTube necesita Internet. No necesita cuenta, claves ni dependencias para jugar en el navegador. No abras el HTML directamente dentro del ZIP: primero extraelo. F11 o el botón de pantalla completa amplían la pantalla.
 
 ## Los dos modos
 
@@ -35,15 +35,15 @@ No hay penalizaciones por tardar. Los pasos de cocina representan un minijuego y
 - `1` / `2`: elegir modo desde la entrada.
 - `Escape`: cerrar menú, ayuda o cancelar una preparación.
 - `Tab` / `Enter`: recorrer y activar botones.
-- ♪: activar o desactivar la música instrumental sintetizada.
+- ♪: abrir o cerrar el reproductor de **Vintage Bakery — Solace Crossing**, la canción de YouTube elegida para el café. Empezá con ▶ si el navegador no inicia el audio automáticamente. El reproductor conserva la canción al cambiar de escena y dispone de volumen y pausa. No se descarga ni se incluye una copia del audio. La versión en GitHub Pages es la recomendada para escuchar; si YouTube no permite reproducir en un archivo local, el panel ofrece el enlace original.
 
 Se guardan estrellas, pedidos completados, visitas, valoraciones, turnos, compras y caricias en `localStorage` del navegador. La preparación en curso no se guarda. Cambiar de navegador, mover el archivo local o borrar los datos del navegador puede cambiar o eliminar el guardado. La aplicación de escritorio tiene su propio guardado.
 
 ## Tecnologías
 
-HTML, CSS y JavaScript, sin framework ni llamadas de red durante el juego. Ilustraciones de escenarios generadas para este proyecto; platos dibujados en SVG desde código; sonidos y música sintetizados con Web Audio. Electron es una opción para empaquetar el mismo juego como aplicación de escritorio.
+HTML, CSS y JavaScript, sin framework. El juego y sus ilustraciones se cargan localmente; YouTube se conecta solo al abrir la música. Escenarios, Delfi, clientes y mascotas ilustrados para este proyecto; platos dibujados en SVG desde código; efectos con Web Audio. Electron es una opción para empaquetar el mismo juego como aplicación de escritorio.
 
-Es un juego 2D de escenas ilustradas y personajes SVG con animaciones de entrada, salida y reposo. Las cuatro ubicaciones tienen ilustraciones propias desde el asiento: ventana, flores, centro y barra. Delfi toma el pedido, se retira y vuelve en todas; en la barra aparece detrás del mostrador.
+Es un juego 2D con personajes ilustrados, poses y animaciones de entrada, salida y reposo. Delfi conserva su aspecto de la entrada, viste delantal blanco y se retira de espalda. Las cuatro ubicaciones tienen ilustraciones propias desde el asiento: ventana, flores, centro y barra. Delfi toma el pedido, se retira y vuelve en todas; en la barra aparece detrás del mostrador. Las mascotas están visibles y se pueden acariciar tanto en las escenas de visita como al trabajar. El área de trabajo tiene el mostrador y la cafetera de fondo.
 
 ## Desarrollo
 
@@ -94,6 +94,8 @@ Para jugar online desde GitHub Pages: en un repositorio compatible con Pages, co
 - `index.html`: inicio.
 - `style.css` y `living.css`: interfaz, escenas y animaciones.
 - `living.js` y `living-data.js`: elenco, visitas animadas, mascotas, valoraciones y tienda.
+- `illustrated.js` / `illustrated.css`: personajes ilustrados, mascotas en las escenas y nombre del café.
+- `soundtrack.js` / `soundtrack.css`: reproductor oficial de YouTube; no contiene el archivo musical.
 - `game.js`: estados, pedidos, cocina, interacción, arte de platos y audio.
 - `menu.js`: productos, recetas, frostings y validación de pedidos.
 - `assets/`: arte exterior, interior e icono.

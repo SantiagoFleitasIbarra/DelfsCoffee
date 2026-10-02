@@ -16,6 +16,12 @@ Los platos e iconos se dibujan en SVG en `game.js` y `assets/icon.svg`. La músi
 
 ## Ampliación del salón
 
+### Personajes ilustrados y música
+
+Se utilizó la herramienta integrada de generación de imágenes para reemplazar los personajes geométricos visibles. `assets/delfi-illustrated.webp` contiene cuatro poses de Delfi, con el rostro de la ilustración original, blusa crema, delantal blanco, falda verde y zapatos marrones: tomando nota, retirándose de espalda, llevando bandeja y saludando. `assets/customers-illustrated.webp` contiene clientes adultos de aspecto cálido con ropa cotidiana, en estilo de película animada y proporciones naturales. `assets/pets-illustrated.webp` usa las fotos proporcionadas como referencia de Miguel, Phoebe y Canelita e incluye poses de reposo y de disfrute de una caricia. Prompt común: cuerpos completos separados sobre transparencia, sombreado suave, pelo/pelaje y telas detallados, sin texto ni escenario. Los atlas se recortaron en celdas, normalizaron y comprimieron para su uso en el juego, preservando transparencia. Las referencias fotográficas no se publican.
+
+La música elegida se reproduce desde el video original `https://www.youtube.com/watch?v=VwR3LBbL6Jk` mediante YouTube IFrame Player API, con el reproductor visible. Título verificado por oEmbed: Vintage Bakery — Smooth and Warm Jazz — Study & Work Music — Animal Crossing Ambience; canal Solace Crossing. No se extrae ni redistribuye su audio.
+
 ### Cuatro asientos (actualización)
 
 Se crearon tres ilustraciones nuevas con la herramienta integrada de generación de imágenes, usando `assets/window.webp` como referencia de estilo. Archivos finales: `assets/flowers.webp`, `assets/center.webp` y `assets/bar.webp`. Prompts: vista en primera persona desde un asiento en el rincón de flores; vista desde la mesa central mirando la entrada; vista desde un taburete frente a la cafetera, con borde horizontal de barra. En todos: fondo 16:9 cálido de película animada, madera miel y verde salvia, sin personas ni texto, espacio para superponer a Delfi y los pedidos. La barra se superpone mediante CSS para ocultar la parte inferior del personaje. Prueba específica: `CHROMIUM_PATH=... node tests/seating.cjs` (la variable es opcional si Playwright tiene Chromium instalado).
