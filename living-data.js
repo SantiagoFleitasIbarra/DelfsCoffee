@@ -6,8 +6,16 @@ const SHOP=[
 {id:'lavender',name:'Mesa de lavanda',price:120,icon:'❀',description:'Un mantel y una bandeja en tonos lavanda.'},
 {id:'pet-beds',name:'Camitas para los tres',price:80,icon:'♡',description:'Miguel, Phoebe y Canelita estrenan almohadones.'},
 {id:'treats',name:'Frasco de premios',price:40,icon:'♧',description:'Desbloquea dar un premio a cada mascota.'},
-{id:'oven',name:'Horno de precisión',price:160,icon:'♨',description:'Amplía la zona verde del horno del 30 % al 50 %.'}
+{id:'oven',name:'Horno de precisión',price:160,icon:'♨',description:'Amplía la temperatura ideal al cocinar: de 54–67 a 45–76 grados.'}
 ];
+SHOP.push(
+{id:'grinder',name:'Jarra con medidor',price:130,icon:'◒',unlock:3,description:'El llenado tolera 6 puntos extra sin perder calidad.'},
+{id:'whisk',name:'Batidor profesional',price:110,icon:'◌',unlock:3,description:'Amplía la zona de mezcla: es más fácil mantener el movimiento circular.'},
+{id:'piping',name:'Manga de precisión',price:150,icon:'〰',unlock:5,description:'Aumenta la tolerancia al trazar masa, crema y decoración.'},
+{id:'recipe-board',name:'Recetario a la vista',price:180,icon:'▤',unlock:5,description:'Mantiene visible el orden de ingredientes durante todo el minijuego.'},
+{id:'flowers',name:'Flores de bienvenida',price:100,icon:'❁',description:'Decoración visible y 15 segundos extra de paciencia por cliente.'},
+{id:'bell',name:'Campanita de atención',price:140,icon:'♧',unlock:5,description:'Podés tranquilizar una vez a cada cliente y recuperar 12 segundos.'}
+);
 const CUSTOMERS=[{id:'lucia',name:'Lucía',sprite:4,quote:'¡Qué rico huele! Me encanta venir acá.'},{id:'mateo',name:'Mateo',sprite:5,quote:'Hoy me merezco una pausa rica.'},{id:'sofia',name:'Sofía',sprite:6,quote:'Delfi me recomendó este lugar. ¡Qué lindo!'},{id:'bruno',name:'Bruno',sprite:7,quote:'Un pedido calentito siempre mejora el día.'},{id:'valentina',name:'Valentina',sprite:8,quote:'¡Vengo por algo rico y un poquito de calma!'}];
 const PETS=[{id:'miguel',name:'Miguel',sprite:9,line:'Miguel se acomoda junto a vos y ronronea.'},{id:'phoebe',name:'Phoebe',sprite:10,line:'Phoebe cierra los ojitos. Su cascabel suena bajito.'},{id:'canelita',name:'Canelita',sprite:11,line:'Canelita mueve la cola y te pide otra caricia.'}];
 function normalize(p){p.coins=Math.max(0,Number(p.coins)||0);p.owned=Array.isArray(p.owned)?p.owned.filter(x=>SHOP.some(s=>s.id===x)):[];if(p.decor&&!p.owned.includes('plant'))p.owned.push('plant');p.affection=p.affection&&typeof p.affection==='object'?p.affection:{};p.ratings=Array.isArray(p.ratings)?p.ratings.slice(-20):[];return p}

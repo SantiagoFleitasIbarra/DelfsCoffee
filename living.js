@@ -3,7 +3,7 @@ const {SHOP,CUSTOMERS,PETS}=CafeLiving;
 CafeLiving.normalize(progress);
 let sceneTimers=new Set(),sceneEpoch=0;
 state.guestPhase='choosing';state.customerPhase='waiting';state.serving=false;state.consumed=[];state.visitRated=false;
-const hasUpgrade=id=>progress.owned.includes(id);
+const hasUpgrade=id=>progress.owned.includes(id)&&!(progress.disabledDecor||[]).includes(id);
 function later(fn,ms){const epoch=sceneEpoch;const timer=setTimeout(()=>{sceneTimers.delete(timer);if(epoch===sceneEpoch)fn()},ms);sceneTimers.add(timer);return timer}
 function clearScene(){sceneEpoch++;for(const t of sceneTimers)clearTimeout(t);sceneTimers.clear();clearTimeout(pending);state.serving=false;}
 function sprite(index,cls='',name=''){return `<span class="actor-sprite ${cls}" style="--sx:${index%4};--sy:${Math.floor(index/4)}" role="img" aria-label="${esc(name)}"></span>`}

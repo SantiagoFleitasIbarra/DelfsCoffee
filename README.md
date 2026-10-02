@@ -1,6 +1,6 @@
 # Un ratito en CANELA & COFFEE
 
-Un juego cozy en español para PC, inspirado en Delfi. Afuera de la cafetería, Delfi te recibe y te invita a **merendar** o a **trabajar con ella**. Ilustraciones cálidas, rolls de canela y una partida sin apuro.
+Un juego cozy en español para PC, inspirado en Delfi. Afuera de la cafetería, Delfi te recibe y te invita a **merendar** o a **trabajar con ella**. Ilustraciones cálidas, rolls de canela para merendar sin apuro o enfrentar un desafío de cocina.
 
 ![Entrada del juego](docs/preview.webp)
 
@@ -16,9 +16,11 @@ El juego funciona sin conexión, incluyendo los minijuegos y la música de ambie
 
 **Merendar:** elegí una de cuatro ubicaciones, pedí hasta cuatro productos, seleccioná el frosting de tus rolls y esperá a que Delfi te sirva. Delfi se acerca con su libreta, se retira a preparar y vuelve con una bandeja. Hacé clic en los productos para disfrutar la merienda y valorá la visita de 1 a 5 estrellas. Miguel, Phoebe y Canelita reaccionan a tus caricias y a los premios. Las visitas son gratis; los precios son valores ficticios para el modo trabajo.
 
-**Trabajar:** atendé cinco clientes por turno. Leé el ticket, elegí una estación, completá los pasos de la receta, frená el horno en la zona verde, seleccioná el frosting indicado y serví en plato o caja según corresponda. Los pedidos incorrectos no se entregan: podés corregirlos. Cada entrega suma estrellas y propina. La tienda permite comprar una planta, luces, decoración lavanda, camas y premios para las mascotas, y un horno con mayor zona de acierto. Lucía, Mateo, Sofía, Bruno y Valentina entran y salen del mostrador.
+**Trabajar:** atendé cinco clientes por turno con minijuegos de mouse: ingredientes arrastrados en orden, trazos de masa y frosting, mezcla circular, cortes guiados, llenado y control del fuego. La calidad de cada paso se guarda en el producto. Los clientes te observan, pierden paciencia y muestran expresiones ilustradas de atención, alegría o descontento. Calidad, rapidez y errores determinan la valoración de 1 a 5 y la propina. Una entrega incorrecta cuesta 8 segundos; podés corregirla. Al terminar la espera el cliente se va sin pagar. El resumen muestra las cinco opiniones reales.
 
-No hay penalizaciones por tardar. Los pasos de cocina representan un minijuego y no son instrucciones culinarias reales.
+**Tienda:** 12 mejoras organizadas en cocina, ambiente y mascotas, con vista previa, saldo, precios y desbloqueos. Horno, jarra, batidor, manga y recetario ayudan en minijuegos concretos; flores agregan 15 segundos al llegar cada nuevo cliente y la campanita recupera 12 segundos una vez por pedido. La decoración comprada se puede guardar y activar sin volver a pagar. Se conservan las compras y estrellas anteriores.
+
+La visita para merendar sigue sin reloj. En el trabajo la paciencia baja durante la preparación; se pausa al abrir ayuda, tienda o recetario y al ocultar la pestaña. Los pasos de cocina representan un minijuego y no son instrucciones culinarias reales.
 
 ## Menú completo (75 opciones)
 
@@ -100,6 +102,7 @@ Para jugar online desde GitHub Pages: en un repositorio compatible con Pages, co
 
 - `index.html`: inicio.
 - `style.css` y `living.css`: interfaz, escenas y animaciones.
+- `challenge-model.js`, `challenge.js` y `challenge.css`: minijuegos, paciencia, opiniones y tienda ampliada.
 - `living.js` y `living-data.js`: elenco, visitas animadas, mascotas, valoraciones y tienda.
 - `illustrated.js` / `illustrated.css`: personajes ilustrados, mascotas en las escenas y nombre del café.
 - `soundtrack.js` / `soundtrack.css`: audio local con título discreto y guardado en IndexedDB.
@@ -114,3 +117,7 @@ Para jugar online desde GitHub Pages: en un repositorio compatible con Pages, co
 - `ART_PROMPTS.md`: procedencia y prompts de las ilustraciones.
 
 La fotografía de referencia original no se incluye en el repositorio. No se define una licencia pública sobre la identidad de Delfi ni sobre el proyecto; el propietario puede decidirla antes de distribuirlo.
+
+### Verificar el desafío
+
+`CHROMIUM_PATH=/ruta/a/chromium node tests/challenge-browser.cjs` prueba gestos de mouse, errores, propinas, pausa, abandono de clientes, resumen y persistencia de la tienda. `npm test` incluye las reglas de calidad, dificultad y compras.
