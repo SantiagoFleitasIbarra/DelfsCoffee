@@ -13,10 +13,10 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),path
  await p.screenshot({path:'/tmp/table-tower-qa.png'});
  await click('.close-button');await p.reload();assert.equal(await p.evaluate(()=>artGallery[0].name),'Mi recuerdo del café');assert.equal(await p.evaluate(()=>towerBest),1);
  for(let i=0;i<4;i++){await p.evaluate(i=>selectSeat(i),i);assert.equal(await p.locator('[data-action="table-games"]').count(),1)}
- await click('[data-action="sound"]');assert.equal(await p.locator('iframe').count(),0);
+ await click('.ambient-title');assert.equal(await p.locator('iframe').count(),0);
  const samples=22050,data=Buffer.alloc(44+samples*2);data.write('RIFF');data.writeUInt32LE(data.length-8,4);data.write('WAVEfmt ',8);data.writeUInt32LE(16,16);data.writeUInt16LE(1,20);data.writeUInt16LE(1,22);data.writeUInt32LE(22050,24);data.writeUInt32LE(44100,28);data.writeUInt16LE(2,32);data.writeUInt16LE(16,34);data.write('data',36);data.writeUInt32LE(samples*2,40);for(let i=0;i<samples;i++)data.writeInt16LE(Math.round(Math.sin(i*2*Math.PI*220/22050)*100),44+i*2);
  await p.locator('#ambient-file').setInputFiles({name:'Ambiente de prueba.wav',mimeType:'audio/wav',buffer:data});await p.waitForFunction(()=>cafeSongTitle==='Ambiente de prueba'&&!cafeAudio.paused);
- await click('.close-button');await p.evaluate(()=>goHome());assert.equal(await p.evaluate(()=>cafeAudio.paused),false);assert.ok((await p.locator('.ambient-title').innerText()).includes('Sonando'));
+ await click('.close-button');await p.evaluate(()=>goHome());assert.equal(await p.evaluate(()=>cafeAudio.paused),false);assert.ok((await p.locator('.ambient-title').innerText()).includes('Ambiente de prueba'));
  await click('[data-action="sound"]');assert.equal(await p.evaluate(()=>cafeAudio.paused),true);assert.equal(await p.locator('iframe').count(),0);
  await p.reload();await p.waitForFunction(()=>cafeSongTitle==='Ambiente de prueba');assert.equal(await p.evaluate(()=>cafeAudio.paused),true);
  await p.evaluate(()=>selectSeat(0));await p.waitForFunction(()=>state.guestPhase==='taking');await p.evaluate(()=>{state.cart=[{id:'latte'}];placeOrder();gamesMenu();paintModal()});await p.waitForFunction(()=>state.scene==='meal');assert.equal(await p.locator('#paint-canvas').count(),1);await click('.close-button');assert.equal(await p.locator('[data-action="eat"]').count(),1);

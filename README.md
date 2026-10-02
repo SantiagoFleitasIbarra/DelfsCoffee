@@ -10,7 +10,7 @@ Un juego cozy en español para PC, inspirado en Delfi. Afuera de la cafetería, 
 2. Abrí `index.html` con Chrome, Edge o Firefox. En Windows también podés hacer doble clic en `JUGAR_EN_WINDOWS.bat`.
 3. Elegí **Quiero merendar** o **Quiero trabajar**.
 
-El juego funciona sin conexión, incluyendo los minijuegos y la música cargada desde un archivo local. No necesita cuenta, claves ni dependencias para jugar en el navegador. No abras el HTML directamente dentro del ZIP: primero extraelo. F11 o el botón de pantalla completa amplían la pantalla.
+El juego funciona sin conexión, incluyendo los minijuegos y la música de ambiente incluida. No necesita cuenta, claves ni dependencias para jugar en el navegador. No abras el HTML directamente dentro del ZIP: primero extraelo. F11 o el botón de pantalla completa amplían la pantalla.
 
 ## Los dos modos
 
@@ -42,7 +42,7 @@ En cualquiera de las cuatro mesas aparece **Pintar o jugar**. También podés ab
 - `1` / `2`: elegir modo desde la entrada.
 - `Escape`: cerrar menú, ayuda o cancelar una preparación.
 - `Tab` / `Enter`: recorrer y activar botones.
-- ♪: reproducir/pausar la música de ambiente. Hacé clic en su título para elegir un archivo MP3, OGG, WAV o M4A y ajustar el volumen. Solo aparece el título arriba; no hay panel de video. El archivo queda en este navegador (IndexedDB), no se sube a Internet. Al recargar, pulsá ♪ para reanudar. La canción de YouTube anterior no se extrae ni se incluye como audio; el selector conserva un enlace a la fuente.
+- ♪: reproducir/pausar Vintage Bakery — Solace Crossing, incluida como audio Opus en partes de dos minutos, reproducidas en orden y en bucle. El MP3 original repite cinco veces una secuencia de unos 35 minutos; se conserva esa secuencia una vez y se repite automáticamente para evitar descargar copias idénticas. Empieza con el primer clic en el juego. Hacé clic en el título para ajustar el volumen o elegir otro archivo local; solo aparece el título arriba, sin video. Los archivos personales se guardan en este navegador (IndexedDB).
 
 Se guardan estrellas, pedidos completados, visitas, valoraciones, turnos, compras y caricias en `localStorage` del navegador. La preparación en curso no se guarda. Cambiar de navegador, mover el archivo local o borrar los datos del navegador puede cambiar o eliminar el guardado. La aplicación de escritorio tiene su propio guardado.
 

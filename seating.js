@@ -6,6 +6,7 @@ const renderSeatedGuest=guest;
 guest=function(){
   let html=renderSeatedGuest();
   if(state.seat===3)html=html.replace('<div class="room-vignette"></div>', '<div class="room-vignette"></div><div class="bar-foreground" aria-hidden="true"></div>');
+  if(state.seat!==null&&state.seat<3)html=html.replace('<div class="room-vignette"></div>', '<div class="room-vignette"></div><div class="table-foreground" aria-hidden="true"></div>');
   return html;
 };
 render();

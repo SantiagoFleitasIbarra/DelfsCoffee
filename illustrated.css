@@ -20,3 +20,18 @@
 .seat-0 .delfi-actor{left:62%;bottom:18%}.welcome .scene-caption{bottom:150px}
 @media(max-width:760px){.seat-0 .delfi-actor{left:40%;bottom:24%}}
 @media(prefers-reduced-motion:reduce){.phase-arriving .delfi-breathe,.phase-leaving .delfi-breathe,.phase-returning .delfi-breathe{animation:none}}
+
+/* Place the waitress beside the foreground table, with feet below its edge. */
+.seat-view .delfi-actor{width:290px;bottom:2%;left:60%}
+.seat-view .delfi-breathe{animation:none}
+.seat-1 .delfi-actor{left:58%;bottom:2%;width:290px}
+.seat-2 .delfi-actor{left:58%;bottom:2%;width:290px}
+.seat-3 .delfi-actor{left:44%;bottom:0;width:300px}
+.seat-view .actor-bubble{left:81%;top:12%}
+.table-foreground{position:absolute;inset:0;z-index:2;pointer-events:none;background-position:center;background-size:cover}
+.seat-0 .table-foreground{background-image:linear-gradient(#18271d60,transparent 50%,#241e1540),url('assets/window.webp');clip-path:polygon(0 96%,20% 85%,35% 81%,50% 80%,65% 84%,80% 94%,86% 100%,0 100%)}
+@media(max-width:1100px){.seat-view .delfi-actor{width:260px;left:55%;bottom:2%}.seat-3 .delfi-actor{left:40%;width:280px;bottom:0}.seat-view .actor-bubble{left:76%;width:140px}}
+@media(max-width:760px){.seat-view .delfi-actor{width:230px;left:36%;bottom:2%}.seat-3 .delfi-actor{left:26%;bottom:0;width:260px}.seat-view .actor-bubble{left:64%;top:18%;width:110px}}
+
+.seat-1 .table-foreground{background-image:linear-gradient(#18271d60,transparent 50%,#241e1540),url('assets/flowers.webp');clip-path:polygon(0 96%,15% 87%,30% 81%,45% 79%,60% 80%,75% 86%,90% 98%,100% 100%,0 100%)}
+.seat-2 .table-foreground{background-image:linear-gradient(#18271d60,transparent 50%,#241e1540),url('assets/center.webp');clip-path:polygon(0 87%,15% 79%,30% 74%,45% 72%,60% 73%,75% 78%,90% 86%,100% 96%,100% 100%,0 100%)}
