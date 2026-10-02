@@ -1,40 +1,19 @@
 'use strict';
-// Keep the official player visible and independent of scene rerenders.
-const SONG_ID='VwR3LBbL6Jk';
-let songPlayer=null,songSession=0,songLoader=null,songTimeout=null;
-function musicStatus(message){const label=document.querySelector('#music-status');if(label)label.textContent=message}
-function closeSoundtrack(){songSession++;clearTimeout(songTimeout);if(songPlayer){try{songPlayer.destroy()}catch{}songPlayer=null}document.querySelector('#music-root').replaceChildren();document.body.classList.remove('music-open');state.sound=false;clearInterval(musicTimer);musicTimer=null}
-function loadSongAPI(){
- if(window.YT?.Player)return Promise.resolve();
- if(songLoader)return songLoader;
- songLoader=new Promise((resolve,reject)=>{
-  const previous=window.onYouTubeIframeAPIReady;
-  window.onYouTubeIframeAPIReady=()=>{if(previous)previous();resolve()};
-  const tag=document.createElement('script');tag.src='https://www.youtube.com/iframe_api';
-  tag.onerror=()=>{songLoader=null;tag.remove();reject(new Error('YouTube no está disponible'))};
-  document.head.appendChild(tag);
- });return songLoader;
-}
-toggleSound=function(){
- if(document.querySelector('#music-root').childElementCount){closeSoundtrack();return}
- clearInterval(musicTimer);musicTimer=null;state.sound=false;
- const session=++songSession;
- const embedParams=new URLSearchParams({enablejsapi:'1',playsinline:'1',controls:'1',loop:'1',playlist:SONG_ID,autoplay:'1',...(/^https?:$/.test(location.protocol)?{origin:location.origin}:{})});
- document.body.classList.add('music-open');
- document.querySelector('#music-root').innerHTML=`<aside class="music-dock" aria-label="Música del café"><div class="music-heading"><div><span class="eyebrow">LA MÚSICA DEL CAFÉ</span><strong>Vintage Bakery</strong><small>Solace Crossing · YouTube</small></div><button type="button" id="close-music" aria-label="Cerrar y detener música">×</button></div><iframe id="cafe-youtube-player" title="Vintage Bakery — Solace Crossing" width="320" height="200" src="https://www.youtube.com/embed/${SONG_ID}?${embedParams}" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><p id="music-status" role="status">Conectando con YouTube…</p><a href="https://www.youtube.com/watch?v=${SONG_ID}" target="_blank" rel="noopener noreferrer">Abrir canción en YouTube ↗</a></aside>`;
- document.querySelector('#close-music').addEventListener('click',closeSoundtrack);
- songTimeout=setTimeout(()=>musicStatus('Si no carga, comprobá la conexión o abrí la canción en YouTube.'),15000);
- loadSongAPI().then(()=>{
-  if(session!==songSession)return;
-  songPlayer=new YT.Player('cafe-youtube-player',{
-   width:320,height:200,videoId:SONG_ID,
-   playerVars:{playsinline:1,controls:1,loop:1,playlist:SONG_ID,...(/^https?:$/.test(location.protocol)?{origin:location.origin}:{})},
-   events:{
-    onReady:event=>{if(session!==songSession)return;clearTimeout(songTimeout);event.target.setVolume(25);musicStatus('Dale a ▶ si la música no comienza sola.');event.target.playVideo()},
-    onStateChange:event=>{if(session!==songSession)return;state.sound=event.data===1;musicStatus(event.data===1?'Sonando · ajustá el volumen en el reproductor.':event.data===2?'En pausa.':'Dale a ▶ para escuchar la canción.')},
-    onAutoplayBlocked:()=>{if(session===songSession)musicStatus('Tocá ▶ en el reproductor para empezar.')},
-    onError:()=>{if(session!==songSession)return;clearTimeout(songTimeout);state.sound=false;musicStatus('YouTube no pudo reproducirla aquí. Podés abrir la canción con el enlace de abajo.')}
-   }
-  });
- }).catch(()=>{clearTimeout(songTimeout);if(session===songSession)musicStatus('Usá ▶ y el volumen del reproductor. Si no carga, abrí la canción en YouTube.')});
-};
+// Local audio stays outside #app so changing tables never restarts a song.
+const cafeAudio=new Audio();cafeAudio.loop=true;cafeAudio.volume=.3;
+let cafeAudioURL=null,cafeSongTitle='',cafeAudioDB=null;
+function audioDatabase(){if(cafeAudioDB)return cafeAudioDB;cafeAudioDB=new Promise((resolve,reject)=>{const request=indexedDB.open('canela-music',1);request.onupgradeneeded=()=>request.result.createObjectStore('songs');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)});return cafeAudioDB}
+async function rememberAudio(file){try{const db=await audioDatabase();await new Promise((resolve,reject)=>{const tx=db.transaction('songs','readwrite');tx.objectStore('songs').put(file,'ambient');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}catch{toast('La canción funciona en esta sesión, pero no se pudo guardar para la próxima.')}}
+function attachAudio(file){if(cafeAudioURL)URL.revokeObjectURL(cafeAudioURL);cafeAudioURL=URL.createObjectURL(file);cafeAudio.src=cafeAudioURL;cafeSongTitle=(file.name||'Mi música del café').replace(/\.[^.]+$/,'');refreshMusicLabel()}
+function refreshMusicLabel(){document.querySelectorAll('.ambient-title').forEach(el=>el.textContent=cafeSongTitle?(cafeAudio.paused?'En pausa · ':'Sonando · ')+cafeSongTitle:'♪ Música de ambiente');document.querySelectorAll('[data-action="sound"]').forEach(el=>{el.setAttribute('aria-label',cafeSongTitle?(cafeAudio.paused?'Reproducir música':'Pausar música'):'Elegir música de ambiente');el.title=cafeSongTitle||'Elegir música de ambiente'});const b=document.querySelector('#audio-play');if(b)b.textContent=cafeAudio.paused?'Reproducir ▶':'Pausar Ⅱ'}
+async function playAmbient(){try{await cafeAudio.play();state.sound=true;refreshMusicLabel()}catch{state.sound=false;toast('No pude reproducir ese archivo. Probá con un MP3, OGG o WAV.')}}
+function musicSettings(){modal(`<span class="eyebrow">UN POQUITO DE MÚSICA</span><h2>Solo el sonido, sin video.</h2><p>Elegí una canción de tu PC. Se reproduce de ambiente y su título aparece arriba.</p><label class="audio-upload">Elegir archivo de audio<input id="ambient-file" type="file" accept="audio/*,.mp3,.ogg,.wav,.m4a"></label><p class="audio-current">${cafeSongTitle?esc(cafeSongTitle):'Todavía no hay una canción cargada.'}</p><div class="audio-controls">${button(cafeAudio.paused?'Reproducir ▶':'Pausar Ⅱ','audio-play','primary',`id="audio-play" ${cafeSongTitle?'':'disabled'}`)}<label>Volumen <input id="ambient-volume" type="range" min="0" max="100" value="${Math.round(cafeAudio.volume*100)}" aria-label="Volumen de la música"></label></div><p class="audio-note">El archivo queda en este navegador; no se sube a Internet. Para escuchar Vintage Bakery acá sin video, cargá su archivo de audio.</p><a class="audio-source" href="https://www.youtube.com/watch?v=VwR3LBbL6Jk" target="_blank" rel="noopener">Abrir Vintage Bakery en YouTube ↗</a>`,'audio-modal')}
+toggleSound=function(){clearInterval(musicTimer);musicTimer=null;if(!cafeSongTitle){musicSettings();return}if(cafeAudio.paused)playAmbient();else{cafeAudio.pause();state.sound=false;refreshMusicLabel()}};
+const compactMusicHeader=header;
+header=function(){return compactMusicHeader().replace('<div class="top-center">un pequeño lugar para estar bien</div>','<button class="ambient-title" data-action="music-settings" title="Elegir canción y ajustar el volumen">'+esc(cafeSongTitle?(cafeAudio.paused?'En pausa · ':'Sonando · ')+cafeSongTitle:'♪ Música de ambiente')+'</button>').replace('Abrir o cerrar la música de YouTube',cafeSongTitle?'Reproducir o pausar música':'Elegir música de ambiente').replace('Vintage Bakery · Música','Música de ambiente')};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b||b.disabled||!['music-settings','audio-play'].includes(b.dataset.action))return;e.preventDefault();e.stopImmediatePropagation();if(b.dataset.action==='music-settings')musicSettings();else toggleSound()},true);
+document.addEventListener('change',async e=>{if(e.target.id!=='ambient-file')return;const file=e.target.files?.[0];if(!file)return;if(!file.type.startsWith('audio/')&&!/\.(mp3|ogg|wav|m4a)$/i.test(file.name)){toast('Elegí un archivo de audio.');return}attachAudio(file);await playAmbient();musicSettings();rememberAudio(file)});
+document.addEventListener('input',e=>{if(e.target.id==='ambient-volume')cafeAudio.volume=Number(e.target.value)/100});
+cafeAudio.addEventListener('pause',()=>{state.sound=false;refreshMusicLabel()});cafeAudio.addEventListener('play',()=>{state.sound=true;refreshMusicLabel()});
+(async()=>{try{const db=await audioDatabase();const file=await new Promise((resolve,reject)=>{const r=db.transaction('songs').objectStore('songs').get('ambient');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});if(file&&!cafeAudioURL)attachAudio(file)}catch{}})();
+render();

@@ -10,7 +10,7 @@ Un juego cozy en español para PC, inspirado en Delfi. Afuera de la cafetería, 
 2. Abrí `index.html` con Chrome, Edge o Firefox. En Windows también podés hacer doble clic en `JUGAR_EN_WINDOWS.bat`.
 3. Elegí **Quiero merendar** o **Quiero trabajar**.
 
-El juego funciona sin conexión; la canción de YouTube necesita Internet. No necesita cuenta, claves ni dependencias para jugar en el navegador. No abras el HTML directamente dentro del ZIP: primero extraelo. F11 o el botón de pantalla completa amplían la pantalla.
+El juego funciona sin conexión, incluyendo los minijuegos y la música cargada desde un archivo local. No necesita cuenta, claves ni dependencias para jugar en el navegador. No abras el HTML directamente dentro del ZIP: primero extraelo. F11 o el botón de pantalla completa amplían la pantalla.
 
 ## Los dos modos
 
@@ -29,19 +29,26 @@ No hay penalizaciones por tardar. Los pasos de cocina representan un minijuego y
 - **Bebidas calientes (24):** expresso simple y doble, panna, americano, latte, cortado, capuchinos clásico y vainilla, frappé, mocha, dalgona, breve, hawaiano, affogato, caramel y vainilla latte, caramel macchiato, matcha latte, submarino, chocolate caliente y cuatro infusiones.
 - **Bebidas frías (24):** cinco milkshakes, tres licuados, jugo de naranja, limonadas clásica/frutos rojos/frambuesa/lavanda, pomelada, coffee orange, tres iced teas, tres iced coffees y tres sodas.
 
+## Jugar en la mesa
+
+En cualquiera de las cuatro mesas aparece **Pintar o jugar**. También podés abrirlo mientras esperás tu pedido.
+
+- **Lienzo:** dibujá con mouse o dedo, elegí colores y grosor, usá goma, flores o corazones, y deshacé/rehacé hasta 15 acciones. El borrador dura la sesión. **Guardar recuerdo** conserva las seis últimas pinturas en este navegador; **Llevarme mi pintura** descarga un PNG de 800 × 520 para guardar o compartir. **Mis recuerdos** permite descargar las obras guardadas.
+- **Torre de sobremesa:** minijuego 2D inspirado en los juegos de bloques apilados. Elegí un bloque, frená el indicador en verde para extraerlo suavemente y se apilará arriba. La torre cae si pierde apoyo o si el movimiento la desequilibra. El piso superior está protegido y se conserva tu récord. Es un modelo simplificado de equilibrio, no una simulación física 3D.
+
 ## Controles y guardado
 
 - Mouse: todas las interacciones.
 - `1` / `2`: elegir modo desde la entrada.
 - `Escape`: cerrar menú, ayuda o cancelar una preparación.
 - `Tab` / `Enter`: recorrer y activar botones.
-- ♪: abrir o cerrar el reproductor de **Vintage Bakery — Solace Crossing**, la canción de YouTube elegida para el café. Empezá con ▶ si el navegador no inicia el audio automáticamente. El reproductor conserva la canción al cambiar de escena y dispone de volumen y pausa. No se descarga ni se incluye una copia del audio. La versión en GitHub Pages es la recomendada para escuchar; si YouTube no permite reproducir en un archivo local, el panel ofrece el enlace original.
+- ♪: reproducir/pausar la música de ambiente. Hacé clic en su título para elegir un archivo MP3, OGG, WAV o M4A y ajustar el volumen. Solo aparece el título arriba; no hay panel de video. El archivo queda en este navegador (IndexedDB), no se sube a Internet. Al recargar, pulsá ♪ para reanudar. La canción de YouTube anterior no se extrae ni se incluye como audio; el selector conserva un enlace a la fuente.
 
 Se guardan estrellas, pedidos completados, visitas, valoraciones, turnos, compras y caricias en `localStorage` del navegador. La preparación en curso no se guarda. Cambiar de navegador, mover el archivo local o borrar los datos del navegador puede cambiar o eliminar el guardado. La aplicación de escritorio tiene su propio guardado.
 
 ## Tecnologías
 
-HTML, CSS y JavaScript, sin framework. El juego y sus ilustraciones se cargan localmente; YouTube se conecta solo al abrir la música. Escenarios, Delfi, clientes y mascotas ilustrados para este proyecto; platos dibujados en SVG desde código; efectos con Web Audio. Electron es una opción para empaquetar el mismo juego como aplicación de escritorio.
+HTML, CSS y JavaScript, sin framework. El juego, sus ilustraciones y la música elegida se cargan localmente; no se incrustan videos ni se inicia una conexión con YouTube. Escenarios, Delfi, clientes y mascotas ilustrados para este proyecto; platos dibujados en SVG desde código; efectos con Web Audio. Electron es una opción para empaquetar el mismo juego como aplicación de escritorio.
 
 Es un juego 2D con personajes ilustrados, poses y animaciones de entrada, salida y reposo. Delfi conserva su aspecto de la entrada, viste delantal blanco y se retira de espalda. Las cuatro ubicaciones tienen ilustraciones propias desde el asiento: ventana, flores, centro y barra. Delfi toma el pedido, se retira y vuelve en todas; en la barra aparece detrás del mostrador. Las mascotas están visibles y se pueden acariciar tanto en las escenas de visita como al trabajar. El área de trabajo tiene el mostrador y la cafetera de fondo.
 
@@ -95,7 +102,9 @@ Para jugar online desde GitHub Pages: en un repositorio compatible con Pages, co
 - `style.css` y `living.css`: interfaz, escenas y animaciones.
 - `living.js` y `living-data.js`: elenco, visitas animadas, mascotas, valoraciones y tienda.
 - `illustrated.js` / `illustrated.css`: personajes ilustrados, mascotas en las escenas y nombre del café.
-- `soundtrack.js` / `soundtrack.css`: reproductor oficial de YouTube; no contiene el archivo musical.
+- `soundtrack.js` / `soundtrack.css`: audio local con título discreto y guardado en IndexedDB.
+- `table-games.js` / `table-games.css`: lienzos, galería, descarga PNG y torre de bloques.
+- `table-games-model.js`: reglas de soporte, equilibrio y extracción de bloques.
 - `game.js`: estados, pedidos, cocina, interacción, arte de platos y audio.
 - `menu.js`: productos, recetas, frostings y validación de pedidos.
 - `assets/`: arte exterior, interior e icono.

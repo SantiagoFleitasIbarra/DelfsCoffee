@@ -1,0 +1,6 @@
+(function(root){
+function newTower(){return Array.from({length:8},()=>[true,true,true])}
+function balance(rows,sway=0){let margin=1.5;for(let i=0;i<rows.length-1;i++){const support=rows[i].flatMap((on,j)=>on?[j-1]:[]);if(!support.length)return 0;let weight=0,moment=0;for(let k=i+1;k<rows.length;k++)rows[k].forEach((on,j)=>{if(on){weight++;moment+=j-1}});if(!weight)continue;const center=moment/weight;const gap=Math.min(center-(Math.min(...support)-.49),(Math.max(...support)+.49)-center)-Math.abs(sway);if(gap<=0)return 0;margin=Math.min(margin,gap)}return Math.min(100,Math.round(margin/1.49*100))}
+function pull(rows,row,col,precision=1,sway=0){if(row<0||row>=rows.length-1||col<0||col>2||!rows[row][col])return {ok:false};const next=rows.map(r=>r.slice());next[row][col]=false;let top=next.at(-1);if(top.every(Boolean)){top=[false,false,false];next.push(top)}const slot=[1,0,2].find(i=>!top[i]);top[slot]=true;const nextSway=sway*.6+(1-Math.max(0,Math.min(1,precision)))*.65;const stability=balance(next,nextSway);return {ok:true,rows:next,sway:nextSway,stability,fallen:stability===0}}
+root.TableRules={newTower,balance,pull};if(typeof module!=='undefined')module.exports=root.TableRules;
+})(typeof window!=='undefined'?window:globalThis);

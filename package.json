@@ -2,11 +2,11 @@
   "name": "delfi-canela-cafe",
   "version": "1.0.0",
   "private": true,
-  "description": "Un juego cozy de cafeter\u00eda inspirado en Delfi: merendar o trabajar preparando pedidos.",
+  "description": "Un juego cozy de cafetería inspirado en Delfi: merendar o trabajar preparando pedidos.",
   "main": "desktop.cjs",
   "scripts": {
     "start": "node server.cjs",
-    "test": "node --test tests/menu.test.cjs",
+    "test": "node --test tests/*.test.cjs",
     "test:ui": "node tests/browser.cjs",
     "desktop": "electron .",
     "build:windows": "electron-packager . Delfi-Cafe --platform=win32 --arch=x64 --out=dist --overwrite --ignore=\"^/(tests|dist|.git|.github|README.md|ART_PROMPTS.md)$\""

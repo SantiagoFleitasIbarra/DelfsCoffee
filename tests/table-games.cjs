@@ -1,0 +1,24 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),path=require('node:path'),{pathToFileURL}=require('node:url');
+(async()=>{const b=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),args:['--no-sandbox','--disable-dev-shm-usage']});try{const p=await b.newPage({viewport:{width:1440,height:950},reducedMotion:'reduce'}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(pathToFileURL(path.resolve(__dirname,'../index.html')).href);
+ const click=s=>p.locator(s).click();
+ await click('[data-action="guest"]');await click('[data-action="seat"][data-id="0"]');await click('[data-action="table-games"]');await click('[data-action="paint-open"]');await p.waitForFunction(()=>document.querySelector('#paint-canvas').dataset.ready==='true');
+ const box=await p.locator('#paint-canvas').boundingBox();await p.mouse.move(box.x+box.width*.2,box.y+box.height*.3);await p.mouse.down();await p.mouse.move(box.x+box.width*.7,box.y+box.height*.7,{steps:15});await p.mouse.up();
+ const painted=await p.locator('#paint-canvas').evaluate(c=>c.toDataURL());
+ await click('[data-action="paint-undo"]');await p.waitForFunction(()=>document.querySelector('#paint-canvas').dataset.ready==='true');assert.notEqual(await p.locator('#paint-canvas').evaluate(c=>c.toDataURL()),painted);
+ await click('[data-action="paint-redo"]');await p.waitForFunction(()=>document.querySelector('#paint-canvas').dataset.ready==='true');assert.equal(await p.locator('#paint-canvas').evaluate(c=>c.toDataURL()),painted);
+ await p.locator('#painting-name').fill('Mi recuerdo del café');await click('[data-action="paint-save"]');assert.equal(await p.evaluate(()=>artGallery.length),1);
+ const download=p.waitForEvent('download');await click('[data-action="paint-download"]');assert.equal((await download).suggestedFilename(),'Mi recuerdo del café.png');
+ await p.screenshot({path:'/tmp/table-paint-qa.png'});
+ await click('.close-button');await click('[data-action="table-games"]');await click('[data-action="tower-open"]');await click('[data-action="tower-select"][data-row="0"][data-col="0"]');await p.waitForFunction(()=>tower.position>.42&&tower.position<.58);await click('[data-action="tower-pull"]');assert.equal(await p.evaluate(()=>tower.moves),1);assert.equal(await p.evaluate(()=>tower.fallen),false);
+ await p.screenshot({path:'/tmp/table-tower-qa.png'});
+ await click('.close-button');await p.reload();assert.equal(await p.evaluate(()=>artGallery[0].name),'Mi recuerdo del café');assert.equal(await p.evaluate(()=>towerBest),1);
+ for(let i=0;i<4;i++){await p.evaluate(i=>selectSeat(i),i);assert.equal(await p.locator('[data-action="table-games"]').count(),1)}
+ await click('[data-action="sound"]');assert.equal(await p.locator('iframe').count(),0);
+ const samples=22050,data=Buffer.alloc(44+samples*2);data.write('RIFF');data.writeUInt32LE(data.length-8,4);data.write('WAVEfmt ',8);data.writeUInt32LE(16,16);data.writeUInt16LE(1,20);data.writeUInt16LE(1,22);data.writeUInt32LE(22050,24);data.writeUInt32LE(44100,28);data.writeUInt16LE(2,32);data.writeUInt16LE(16,34);data.write('data',36);data.writeUInt32LE(samples*2,40);for(let i=0;i<samples;i++)data.writeInt16LE(Math.round(Math.sin(i*2*Math.PI*220/22050)*100),44+i*2);
+ await p.locator('#ambient-file').setInputFiles({name:'Ambiente de prueba.wav',mimeType:'audio/wav',buffer:data});await p.waitForFunction(()=>cafeSongTitle==='Ambiente de prueba'&&!cafeAudio.paused);
+ await click('.close-button');await p.evaluate(()=>goHome());assert.equal(await p.evaluate(()=>cafeAudio.paused),false);assert.ok((await p.locator('.ambient-title').innerText()).includes('Sonando'));
+ await click('[data-action="sound"]');assert.equal(await p.evaluate(()=>cafeAudio.paused),true);assert.equal(await p.locator('iframe').count(),0);
+ await p.reload();await p.waitForFunction(()=>cafeSongTitle==='Ambiente de prueba');assert.equal(await p.evaluate(()=>cafeAudio.paused),true);
+ await p.evaluate(()=>selectSeat(0));await p.waitForFunction(()=>state.guestPhase==='taking');await p.evaluate(()=>{state.cart=[{id:'latte'}];placeOrder();gamesMenu();paintModal()});await p.waitForFunction(()=>state.scene==='meal');assert.equal(await p.locator('#paint-canvas').count(),1);await click('.close-button');assert.equal(await p.locator('[data-action="eat"]').count(),1);
+ assert.deepEqual(errors,[]);console.log('PASS: painting, undo/redo, PNG download, gallery persistence, tower play/record, four tables, local audio playback/pause/persistence without iframe.');
+ }finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});
