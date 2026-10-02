@@ -1,0 +1,88 @@
+/* Keep every conversation and the active work surface in the first viewport. */
+#app{display:flex;flex-direction:column}
+#app>.topbar{order:0;flex-shrink:0}
+#app>.dialogue{order:1;position:relative;background:#fffaf0;border:1px solid #dfd3bd;border-radius:16px;padding:12px 18px;margin:0 0 12px;min-height:86px;gap:14px;box-shadow:0 5px 18px #4939210c;animation:conversation-arrive .25s ease-out}
+#app>.dialogue:after{content:'';position:absolute;bottom:-7px;left:48px;width:12px;height:12px;background:#fffaf0;border-right:1px solid #dfd3bd;border-bottom:1px solid #dfd3bd;transform:rotate(45deg)}
+#app>.dialogue .speaker-avatar{flex-basis:48px;height:48px}
+#app>.dialogue .speech p{font-size:16px;margin-top:4px;max-width:850px}
+#app>.dialogue .dialogue-actions button{padding:11px 15px}
+#app>main{order:2}
+#toast{top:16px;bottom:auto;transform:translate(-50%,-20px);border:1px solid #abc09b;box-shadow:0 8px 35px #152b3540}
+#toast.visible{transform:translate(-50%,0)}
+.customer-message{background:#fffaf0;border:1px solid #dbc8aa;box-shadow:0 5px 20px #38251619;overflow:visible}
+.customer-message:before{content:'';position:absolute;left:-7px;top:32px;width:12px;height:12px;background:inherit;border-left:1px solid #dbc8aa;border-bottom:1px solid #dbc8aa;transform:rotate(45deg)}
+@keyframes conversation-arrive{from{opacity:0;translate:0 -10px}to{opacity:1;translate:0 0}}
+@media(min-width:900px){
+ body[data-scene=work] .topbar{height:68px}
+ body[data-scene=work] .dialogue{min-height:72px;margin-bottom:10px;padding:8px 14px;flex-wrap:nowrap}
+ body[data-scene=work] .dialogue .speech{min-width:0}
+ .work-layout{min-height:0;grid-template-columns:minmax(0,1fr) 300px;gap:14px}
+ .kitchen{padding:16px}
+ .work-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+ .work-heading>.eyebrow{display:none}
+ .work-heading h2{font-size:25px;margin:0}
+ .work-heading p{margin:0}
+ .customer-stage{height:155px;margin-top:10px}
+ .customer-person:has(.art-expression){left:6%!important;bottom:4px!important}
+ .customer-person .art-expression{width:155px!important;height:155px!important}
+ .customer-message{left:35%;right:16px;top:14px;padding:10px 14px}
+ .customer-message h3{font-size:23px;margin:3px 0}
+ .customer-message p{font-size:14px}
+ .station-grid{margin:10px 0;gap:10px}
+ .station{padding:0 12px 10px}
+ .station-picture{height:65px;margin:2px 0}
+ .station-picture .food-art.large,.station-picture.pastry .food-art.large{width:65px;height:65px}
+ .station-picture.pastry .food-art:not(.large){width:45px;height:45px;margin-top:15px;margin-left:-18px}
+ .station strong{font-size:19px;margin-bottom:3px}
+ .tray{padding:10px 12px;min-height:85px}
+ .tray-items{min-height:60px;gap:6px}
+ .tray-item .food-art{width:36px;height:36px}
+ .tray-item{padding:3px 7px;font-size:10px}
+ .empty-tray{font-size:14px;padding-top:7px;line-height:1.4}
+ .order-board{padding:14px;gap:10px}
+ .customer-pressure{margin:0}
+ .ticket{padding:12px 14px 17px}
+ .ticket-head{margin-bottom:8px;padding-bottom:8px}
+ .ticket h3{font-size:24px}
+ .ticket-list{margin-top:10px}
+ .ticket-list li{margin-top:9px;font-size:12px}
+ .customer-quote{font-size:12px;line-height:1.4}
+ .order-hint{display:none}
+ .pack-option,.serve-button{padding:11px}
+ .challenge-modal{max-width:1120px;padding:18px 24px;display:grid;grid-template-columns:minmax(0,1fr) 230px;column-gap:20px;align-items:start;max-height:96dvh}
+ .challenge-modal .skill-heading{grid-column:1/-1;padding-right:28px}
+ .challenge-modal .skill-heading h2{font-size:25px;margin:3px 0}
+ .challenge-modal .skill-steps{grid-column:1;margin:6px 0}
+ .challenge-modal .customer-watch{grid-column:2;grid-row:2/9;display:flex;flex-direction:column;align-items:stretch;margin:6px 0;padding:16px;min-height:0}
+ .challenge-modal .watch-portrait{width:100px;height:95px;margin:0 auto 12px}
+ .challenge-modal .watch-portrait .art-expression{left:7px;top:0}
+ .challenge-modal .customer-watch p{font-size:15px!important;line-height:1.55!important;margin:10px 0!important}
+ .challenge-modal h3,.challenge-modal .skill-help,.challenge-modal .skill-frostings,.challenge-modal #skill-canvas,.challenge-modal .skill-bottom,.challenge-modal .keyboard-help{grid-column:1}
+ .challenge-modal #skill-canvas{width:100%;max-height:none}
+ .challenge-modal h3{font-size:22px;margin:3px 0}
+ .challenge-modal .skill-help{margin:3px 0 7px!important}
+ .challenge-modal .skill-bottom{min-height:40px;margin-top:5px}
+ .challenge-modal .skill-bottom button{padding:10px 14px}
+ .challenge-modal .keyboard-help{margin-top:2px}
+}
+@media(min-width:900px) and (max-height:760px){
+ .challenge-modal{max-width:980px;padding:12px 20px;column-gap:16px;grid-template-columns:minmax(0,1fr) 215px}
+ .challenge-modal .skill-steps span{padding:4px 7px}
+ .challenge-modal .skill-heading h2{font-size:22px}
+ .challenge-modal .skill-frostings{margin:2px 0 5px}
+}
+@media(max-width:899px){
+ #app>.dialogue{gap:8px;padding:10px 12px}
+ #app>.dialogue .speech p{font-size:14px}
+ #app>.dialogue .dialogue-actions{margin:0;gap:6px}
+ #app>.dialogue .dialogue-actions button{padding:9px 10px;font-size:11px}
+ .customer-message{top:14px;right:10px;padding:10px;left:43%}
+ .customer-message h3{font-size:22px}
+}
+@media(prefers-reduced-motion:reduce){#app>.dialogue{animation:none}}
+@media(min-width:900px){
+ body[data-scene=work] #app>.dialogue{min-height:68px;padding:8px 14px;margin-bottom:10px}
+ body[data-scene=work] .work-heading{padding:8px 14px}
+ .work-pets-wrapper{height:78px;margin-top:8px}
+ .work-pets-wrapper .pet-hit{scale:.75;transform-origin:bottom center}
+}
